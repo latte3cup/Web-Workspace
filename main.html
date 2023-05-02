@@ -1,10 +1,145 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>main</title>
-  </head>
+    <style>
+        * {
+            box-sizing: border-box;
+            /*border: 1px solid black;*/
+        }
 
+        body {
+            height: 100vh;
+        }
+
+        header {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            position: relative;
+
+        }
+
+        .search-box {
+            border: 2px solid green;
+            border-radius: 3px;
+            width: 400px;
+            margin: 10px 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            position: relative;
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), inset 0px -3px 6px -2px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-txt {
+            font-size: 1.1em;
+            border: none;
+            width: 90%;
+            margin: 0;
+
+        }
+
+        .search-txt::placeholder {
+            color: #ced4da;
+        }
+
+        .search-btn {
+            border: inherit;
+            position: absolute;
+            width: 50px;
+            height: 47px;
+            float: right;
+            transform: translate(0, -12px);
+            
+            
+        }
+
+        .setting {
+            margin-left: 20px;
+            position: absolute;
+            right: 40px;
+            top: 50px;
+
+        }
+
+        .setting > ul {
+            margin: 0;
+            padding: 10px;
+            font-size: 0.8em;
+            list-style-type: none;
+            text-align: center;
+
+        }
+        .setting  li{
+            display: inline-block;
+        }
+        nav {
+            background-color: #A9DA5D;
+            color: white;
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), inset 0px -3px 6px -2px rgba(0, 0, 0, 0.3);
+            
+        }
+        nav > ul{
+            margin: 0;
+            font-size: 1.3em;
+            text-align: center;
+        }
+        nav li{
+            display: inline-block;
+            padding: 10px 80px;
+            
+        }
+
+        section {
+            width: 1200px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="LOGO.png" style="width: 180px;">
+        <form action="search.php" method="get">
+            <div class="search-box">
+                <input class="search-txt" type="text" placeholder="검색할 레시피를 입력해 주세요.">
+                <button class="search-btn" type="submit" >검색</button>
+
+            </div>
+        </form>
+        <div class="setting">
+            <ul>
+                <li>로그인/아웃</li>
+                <li>마이페이지</li>
+                <li>쪽지</li>
+            </ul>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li>HOME</li>
+            <li>레시피</li>
+            <li>랭킹</li>
+            <li>커뮤니티</li>
+        </ul>
+    </nav>
+    <section>
+        <div class="recent_Ranking_with_Img">
+            내용
+
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+</body>
 
 
 
