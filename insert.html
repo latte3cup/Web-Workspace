@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-
-<html lang="ko">
+<html>
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>로그인</title>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
   <!--반응형 웹을 위한 미디어 쿼리 지정-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--부트스트랩 cdn 정의-->
@@ -14,144 +14,186 @@
   <!--부트스트랩 아이콘 CDN-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
+  <!-- Jquery CDN 정의-->
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+  <!--swiper-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <!--기본 프레임 css-->
+  <link rel="stylesheet" href="base.css">
+  <title>주부들의 쉼터</title>
   <style>
-    * {}
-
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-
-    header,
-    div[class="modal-header"] {
-      background-color: #76cc41;
-      border-radius: 10px;
-      box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
-
-    }
-
-    img[src="LOGO.png"] {
-      border-radius: 10px;
-    }
-
-    form[id="log-in"] {
-      box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
-      border-radius: 20px;
-      max-width: 800px;
-
-    }
-
-    button[type="submit"] {
-      box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.35);
+    *{
       border: 1px solid black;
     }
 
-    button:hover {
-      box-shadow: inset -5px -5px 10px 0px rgba(255, 255, 255, 0.5), inset 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-      font-size: 1.2em;
-    }
-
-    a {
-      text-decoration: none;
-      color: gray;
-    }
-
-    a:hover {
-      font-size: 1.05em;
-      color: dimgray;
-    }
-
   </style>
-
-
 </head>
 
-<body class="text-center">
-  <main class="form-signin container-lg mt-3">
-    <form id="log-in" class="container" style="padding: 0;">
-      <header class="mb-4">
-        <a href="main.html">
-          <img class="mt-1 mb-1" src="LOGO.png" width="200">
-        </a>
-      </header>
-      <h1 class="h3 mb-3 fw-bold">로그인 / 회원가입</h1>
-
-      <div class="form-floating">
-        <input type="ID" class="form-control" id="floatingInput" placeholder="ID">
-        <label for="floatingInput">ID</label>
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
-
-      <div class="mt-2 mb-3">
-        <a href="" data-bs-toggle="modal" data-bs-target="#register">회원가입</a>
-      </div>
-      <div class="container">
-        <!--각종 API들이 들어설 수 있는 공간-->
-      </div>
-      <button class="w-40 btn btn-lg mb-3" type="submit">로그인</button>
-
-    </form>
-  </main>
-
-  <!--register modal-->
-  <div class="modal fade" id="register" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold">회원가입</h5>
+<body>
+  <header>
+    <div class="container-fluid mt-2 mb-2 d-flex" style="max-width: 800px;">
+      <div class="input-group">
+        <img src="LOGO.png" class="img-fluid">
+        <input type="text" class="form-control h-50 align-self-center shadow" placeholder="검색할 레시피를 입력하세요." maxlength=15>
+        <div class="input-group-append align-self-center shadow">
+          <button class="btn btn-outline-secondary" type="submit">검색</button>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3 row">
-              <div class="col-md-2 d-flex align-items-center justify-content-center">ID</div>
-              <div class="col-md-7"><input type="text" class="form-control" id="inputID" placeholder="Enter your ID"></div>
+      </div>
+      <ul class="list-unstyled d-flex align-items-end" style="padding-left: 10px;">
+        <div class="circle-icon">
+          <a href="login.html"><span class="bi bi-person-fill fs-2"></span></a>
+        </div>
+        <div class="circle-icon">
+          <span class="bi bi-envelope-fill fs-4 bg-#FFF"></span>
+        </div>
+      </ul>
+    </div>
+  </header>
+  <nav>
+    <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
+      <li class="nav-item"><a href="main.html" class="nav-link">HOME</a></li>
+      <li class="nav-item"><a href="recipe.html" class="nav-link">레시피</a></li>
+      <li class="nav-item"><a href="ranking.html" class="nav-link">랭킹</a></li>
+      <li class="nav-item"><a href="community.html" class="nav-link">커뮤니티</a></li>
+    </ul>
+  </nav>
+  <section class="container-fluid pt-4">
+    <!--레시피 등록-->
+    <div class="container bg-white ">
+      <p class="container fw-bold">레시피 등록</p>
+      <div class="contianer-fluid">
+        <div class="container row ">
+
+          <div class="col-md-8">
+            <div class="row mb-3">
               <div class="col-md-3">
-                <btn class="btn">중복확인</btn>
+                레시피 제목
+              </div>
+              <div class="col-md-8">
+                <input type="text" class="form-control" id="inputRecipeName" placeholder="예) 제육덮밥">
               </div>
             </div>
-            <div class="mb-3 row">
-              <div class="col-md-2 d-flex align-items-center justify-content-center">Password</div>
-              <div class="col-md-10"><input type="password" class="form-control" id="inputPassword" placeholder="Enter your password"></div>
-            </div>
-            <div class="mb-3 row">
-              <div class="col-md-2 d-flex align-items-center justify-content-center">이름</div>
-              <div class="col-md-4"> <input type="text" class="form-control" id="inputName" placeholder="Name">
+            <div class="row mb-3">
+              <div class="col-md-3">
+                요리소개
               </div>
-              <div class="col-md-2 d-flex align-items-center justify-content-center">성별</div>
+              <div class="col-md-8">
+                <textarea class=" col-md-12 form-control" rows="3" placeholder=" 이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength=200 style="resize: none"></textarea>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">
+                카테고리
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" text="종류별">
+                  <option value="">종류별</option>
+                  <option value="1">반찬</option>
+                  <option value="2">국/탕</option>
+                  <option value="3">찌개</option>
+                  <option value="4">디저트</option>
+                  <option value="5">면</option>
+                  <option value="6">빵</option>
+                  <option value="7">음료</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" text="재료별">
+                  <option value="">재료별</option>
+                  <option value="11">육류</option>
+                  <option value="12">채소류</option>
+                  <option value="13">해물류</option>
+                  <option value="14">달걀/유제품</option>
+                  <option value="15">곡류</option>
+                  <option value="16">과일류</option>
+                </select>
+              </div>
               <div class="col-md-2">
-                <input type="radio" value='남' name="gender" checked> 남
+                <select class="form-select" text="방법별">
+                  <option value="">방법별</option>
+                  <option value="21">볶음</option>
+                  <option value="22">끓이기</option>
+                  <option value="23">부침</option>
+                  <option value="24">굽기</option>
+                  <option value="25">비빔</option>
+                  <option value="26">찜</option>
+                  <option value="27">튀김</option>
+                  <option value="28">삶기</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">
+                요리정보
+              </div>
+              <div class="col-md-1">
+                인원
               </div>
               <div class="col-md-2">
-                <input type="radio" value='여' name="gender"> 여
+                <select class="form-select " text="인원">
+                  <option value="">인원</option>
+                  <option value="31">1인분</option>
+                  <option value="32">2인분</option>
+                  <option value="33">3인분</option>
+                  <option value="34">4인분</option>
+                  <option value="35">5인분</option>
+                  <option value="36">6인분 이상</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                조리시간
+              </div>
+              <div class="col-md-3">
+                <select class="form-select " text="조리시간">
+                  <option value="">조리시간</option>
+                  <option value="41">5분이내</option>
+                  <option value="42">10분이내</option>
+                  <option value="43">15분이내</option>
+                  <option value="44">20분이내</option>
+                  <option value="45">30분이내</option>
+                  <option value="46">60분이내</option>
+                  <option value="47">90분이내</option>
+                  <option value="48">2시간이내</option>
+                  <option value="49">2시간이상</option>
+                </select>
               </div>
             </div>
-
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-              <button type="button" class="btn btn-primary">가입하기</button>
-            </div>
-          </form>
+          </div>
+          <div class=" col-md-4 d-flex align-items-center justify-content-center">
+            <img class="img-fluid " id="mainPhotoHolder" onclick="browseMainFile()" src="IMG/uploadIMG.gif">
+          </div>
         </div>
-
       </div>
     </div>
-  </div>
-  <!--register modal END-->
 
+    <div class="container bg-white mt-3">
+      <p class="container fw-bold">재료</p>
+      <div id="meterial-group" class="row">
+        <div class="col-md-6">
+          주재료
+          <div class="material-main row">
+            <input type="text" class=" col-md-8 form-control" placeholder="예) 돼지고기" >
+            <input type="text" class="col-md-4 form-control align-self-center" placeholder="300g" >
+          </div>
+        </div>
+        <div class="col-md-6">
+          부재료
+        </div>
+        
+      </div>
+    </div>
 
+  </section>
+  <footer>
+    <pre>(주)주부들의 쉼터 : 경기도 포천시 호국로 1007
+      제작자 : 오준걸 | t. ##-###-#### | F. 010-####-###
+      Fax. ##-###-#### | 사업자 번호 : ###-###-### <address>20181165@daejin.ac.kr</address>
+      </pre>
+  </footer>
 </body>
 
+
+
 </html>
+<!---->
