@@ -23,8 +23,15 @@
   <link rel="stylesheet" href="base.css">
   <title>주부들의 쉼터</title>
   <style>
-    *{
+    * {
+
       border: 1px solid black;
+
+    }
+
+    #addButton {
+      position:;
+
     }
 
   </style>
@@ -170,17 +177,33 @@
     <div class="container bg-white mt-3">
       <p class="container fw-bold">재료</p>
       <div id="meterial-group" class="row">
-        <div class="col-md-6">
-          주재료
-          <div class="material-main row">
-            <input type="text" class=" col-md-8 form-control" placeholder="예) 돼지고기" >
-            <input type="text" class="col-md-4 form-control align-self-center" placeholder="300g" >
+        <div class="col-md-6 material-main">
+          <div class="container text-center ">주재료</div>
+          <div class=" row mt-3 mb-2">
+            <div class="col-md-6">
+              <input type="text" class="  form-control" placeholder="예) 돼지고기">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="300g">
+            </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <input type="text" class="  form-control" placeholder="예) 당면">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control align-self-center" placeholder="50g">
+            </div>
+          </div>
+          <div>
+            <button id="addButton">Add Box</button>
+          </div>
+
+
         </div>
         <div class="col-md-6">
           부재료
         </div>
-        
       </div>
     </div>
 
@@ -191,6 +214,31 @@
       Fax. ##-###-#### | 사업자 번호 : ###-###-### <address>20181165@daejin.ac.kr</address>
       </pre>
   </footer>
+
+  <script>
+  $(document).ready(function() {
+    $('#addButton').click(function() {
+      var rowDiv = $('<div>').addClass('row mb-2');
+      var colDiv1 = $('<div>').addClass('col-md-6');
+      var colDiv2 = $('<div>').addClass('col-md-6');
+      var inputField1 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '예) 당면');
+      var inputField2 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '50g');
+      var deleteButton = $('<button>').addClass('btn btn-danger align-self-end').text('Delete');
+      
+      deleteButton.click(function() {
+        rowDiv.remove();
+      });
+
+    
+      colDiv1.append(inputField1);
+      colDiv2.append(inputField2);
+      colDiv2.append(deleteButton);
+      rowDiv.append(colDiv1);
+      rowDiv.append(colDiv2);
+      $('.material-main').append(rowDiv);
+    });
+  });
+</script>
 </body>
 
 
