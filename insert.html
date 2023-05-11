@@ -13,25 +13,25 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <!--부트스트랩 아이콘 CDN-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
   <!-- Jquery CDN 정의-->
   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
   <!--swiper-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
   <!--기본 프레임 css-->
-  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="css/base.css">
   <title>주부들의 쉼터</title>
+
   <style>
     * {
 
       border: 1px solid black;
 
+
     }
 
-    #addButton {
-      position:;
-
+    .boxed {
+      border-right: 1px solid black;
     }
 
   </style>
@@ -86,7 +86,7 @@
                 요리소개
               </div>
               <div class="col-md-8">
-                <textarea class=" col-md-12 form-control" rows="3" placeholder=" 이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength=200 style="resize: none"></textarea>
+                <textarea class=" form-control" rows="3" placeholder=" 이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength=200 style="resize: none"></textarea>
               </div>
             </div>
             <div class="row mb-3">
@@ -173,72 +173,139 @@
         </div>
       </div>
     </div>
-
-    <div class="container bg-white mt-3">
+    <div class="container bg-white mt-4">
       <p class="container fw-bold">재료</p>
       <div id="meterial-group" class="row">
-        <div class="col-md-6 material-main">
-          <div class="container text-center ">주재료</div>
-          <div class=" row mt-3 mb-2">
-            <div class="col-md-6">
-              <input type="text" class="  form-control" placeholder="예) 돼지고기">
-            </div>
-            <div class="col-md-6">
-              <input type="text" class="form-control" placeholder="300g">
+        <div class="container text-center col-md-6 boxed">주재료
+          <div class="row material-main1 d-flex flex-column-reverse ">
+            <div id="button-aria" class="d-flex justify-content-center mt-2">
+              <button id="addButton1">추가하기</button>
             </div>
           </div>
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <input type="text" class="  form-control" placeholder="예) 당면">
-            </div>
-            <div class="col-md-6">
-              <input type="text" class="form-control align-self-center" placeholder="50g">
-            </div>
-          </div>
-          <div>
-            <button id="addButton">Add Box</button>
-          </div>
-
 
         </div>
-        <div class="col-md-6">
-          부재료
+        <div class="container text-center col-md-6">부재료
+          <div class="row material-main2 d-flex flex-column-reverse ">
+            <div id="button-aria" class="d-flex justify-content-center mt-2">
+              <button id="addButton2">추가하기</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
+    <div class="container bg-white mt-4">
+      <p class="container fw-bold"> 요리 순서</p>
+      <div class="container row " id="Step-Aria">
+        <div class="col-md-1">
+          Step1
+        </div>
+        <div class="col-md-6">
+          <textarea class=" form-control" rows="4" placeholder="이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength=200 style="resize: none">
+          </textarea>
+        </div>
+        <div class="col-md-5">
+          <input type="hidden" name="stepImg" id="step1_Img" value="">
+          <img src="IMG/stepInputImg.gif" style="max-width: 110px;">
+
+        </div>
+      </div>
+
+      <div id="button-aria" class="d-flex justify-content-center mt-2">
+        <button id="addStepBtn">추가하기</button>
+      </div>
+
+    </div>
+
+    <div class="container mt-4 bg-white">
+      올리기 
+    </div>
+    
   </section>
   <footer>
-    <pre>(주)주부들의 쉼터 : 경기도 포천시 호국로 1007
+    <pre>(주)주부들의 쉼터 : 경기도 포천시 호국로 1007x
       제작자 : 오준걸 | t. ##-###-#### | F. 010-####-###
       Fax. ##-###-#### | 사업자 번호 : ###-###-### <address>20181165@daejin.ac.kr</address>
       </pre>
   </footer>
 
   <script>
-  $(document).ready(function() {
-    $('#addButton').click(function() {
-      var rowDiv = $('<div>').addClass('row mb-2');
-      var colDiv1 = $('<div>').addClass('col-md-6');
-      var colDiv2 = $('<div>').addClass('col-md-6');
-      var inputField1 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '예) 당면');
-      var inputField2 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '50g');
-      var deleteButton = $('<button>').addClass('btn btn-danger align-self-end').text('Delete');
-      
-      deleteButton.click(function() {
-        rowDiv.remove();
-      });
+    $(document).ready(function() {
+      $('#addButton1').click(function() {
+        var rowDiv = $('<div>').addClass('row mt-3 mb-2');
+        var colDiv1 = $('<div>').addClass('col-md-6');
+        var colDiv2 = $('<div>').addClass('col-md-5');
+        var colDiv3 = $('<div>').addClass('col-md-1');
+        var inputField1 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '예) 돼지고기');
+        var inputField2 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '300g');
+        var deleteIcon = $('<i>').addClass('bi bi-x btn');
 
-    
-      colDiv1.append(inputField1);
-      colDiv2.append(inputField2);
-      colDiv2.append(deleteButton);
-      rowDiv.append(colDiv1);
-      rowDiv.append(colDiv2);
-      $('.material-main').append(rowDiv);
+        deleteIcon.click(function() {
+          rowDiv.remove();
+        });
+
+        colDiv1.append(inputField1);
+        colDiv2.append(inputField2);
+        colDiv3.append(deleteIcon);
+        rowDiv.append(colDiv1);
+        rowDiv.append(colDiv2);
+        rowDiv.append(colDiv3);
+        rowDiv.appendTo('.material-main1');
+      });
     });
-  });
-</script>
+
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#addButton2').click(function() {
+        var rowDiv = $('<div>').addClass('row mt-3 mb-2');
+        var colDiv1 = $('<div>').addClass('col-md-6');
+        var colDiv2 = $('<div>').addClass('col-md-5');
+        var colDiv3 = $('<div>').addClass('col-md-1');
+        var inputField1 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '예) 소금');
+        var inputField2 = $('<input>').attr('type', 'text').addClass('form-control').attr('placeholder', '2스푼');
+        var deleteIcon = $('<i>').addClass('bi bi-x btn');
+
+        deleteIcon.click(function() {
+          rowDiv.remove();
+        });
+
+        colDiv1.append(inputField1);
+        colDiv2.append(inputField2);
+        colDiv3.append(deleteIcon);
+        rowDiv.append(colDiv1);
+        rowDiv.append(colDiv2);
+        rowDiv.append(colDiv3);
+        rowDiv.appendTo('.material-main2');
+      });
+    });
+
+  </script>
+  <script>
+    $(document).ready(function() {
+      // 추가 버튼 클릭 시 동작
+      $("#addStepBtn").click(function() {
+        // 새로운 스텝 요소를 생성하여 컨테이너에 추가
+        var newStep = `
+      <div class="container row" id="Step-Aria">
+        <div class="col-md-1">
+          Step2
+        </div>
+        <div class="col-md-6">
+          <textarea class="form-control" rows="4" placeholder="이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength="200" style="resize: none"></textarea>
+        </div>
+        <div class="col-md-5">
+          <input type="hidden" name="stepImg" id="step1_Img" value="">
+          <img src="IMG/stepInputImg.gif" style="max-width: 110px;">
+        </div>
+      </div>
+    `;
+        $("#Step-Aria").append(newStep);
+      });
+    });
+
+  </script>
 </body>
 
 
