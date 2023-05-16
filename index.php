@@ -3,6 +3,9 @@
 
 <head>
   <meta charset="utf-8">
+  <!--기본 프레임 css-->
+  <link href="css/base.css?after" type="text/css" rel="stylesheet">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -19,9 +22,7 @@
   <!--swiper-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-  <!--기본 프레임 css-->
-  <link rel="stylesheet" href="css/base.css">
-    
+
   <title>main_bootstrap</title>
   <style>
     * {
@@ -33,15 +34,22 @@
       color: gray;
     }
 
-
   </style>
 </head>
 
 <body>
+  <?php
+  session_start();
+  $login= false;
+  if(isset($_SESSION['current_uid'])){
+    $uname = $_SESSION['current_uname'];
+    $login = true;
+  }
+  ?>
   <header>
     <div class="container-fluid mt-2 mb-2 d-flex" style="max-width: 800px;">
       <div class="input-group">
-        <a href="main.html">
+        <a href="index.php">
           <img src="IMG/LOGO.png" class="img-fluid">
         </a>
         <input type="text" class="form-control h-50 align-self-center shadow" placeholder="검색할 레시피를 입력하세요." maxlength=15>
@@ -51,17 +59,26 @@
       </div>
       <ul class="list-unstyled d-flex align-items-end" style="padding-left: 10px;">
         <div class="circle-icon">
+          <?php if($login){ ?>
+          <a href="mypage.html"><span class="bi bi-person-fill fs-2"></span></a>
+          <a href="signout.php">로그아웃</a>
+          <?php }else { ?>
           <a href="login.html"><span class="bi bi-person-fill fs-2"></span></a>
+          <?php } ?>
         </div>
         <div class="circle-icon">
+          <?php if($login){ ?>
           <a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+          <?php }else { ?>
+          <a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
+          <?php } ?>
         </div>
       </ul>
     </div>
   </header>
   <nav>
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
-      <li class="nav-item selected"><a href="main.html" class="nav-link">HOME</a></li>
+      <li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
       <li class="nav-item"><a href="recipe.html" class="nav-link">레시피</a></li>
       <li class="nav-item"><a href="ranking.html" class="nav-link">랭킹</a></li>
       <li class="nav-item"><a href="community.html" class="nav-link">커뮤니티</a></li>
@@ -119,7 +136,7 @@
     <div id="weekly-recommand" class="container mb-4 bg-white">
       <div class=" d-flex align-items-end justify-content-between row ">
         <div class="col-md-2 card">
-          <img src="LOGO.png" class="card-img-top">
+          <img src="IMG/LOGO.png" class="card-img-top">
           <div class="card-body"></div>
 
         </div>
@@ -231,4 +248,3 @@
 
 </html>
 <!---->
- 
