@@ -60,8 +60,7 @@
       <ul class="list-unstyled d-flex align-items-end" style="padding-left: 10px;">
         <div class="circle-icon">
           <?php if($login){ ?>
-          <a href="mypage.html"><span class="bi bi-person-fill fs-2"></span></a>
-          <a href="signout.php">로그아웃</a>
+          <a href="mypage.php"><span class="bi bi-person-fill fs-2"></span></a>
           <?php }else { ?>
           <a href="login.html"><span class="bi bi-person-fill fs-2"></span></a>
           <?php } ?>
@@ -79,9 +78,9 @@
   <nav>
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
       <li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
-      <li class="nav-item"><a href="recipe.html" class="nav-link">레시피</a></li>
-      <li class="nav-item"><a href="ranking.html" class="nav-link">랭킹</a></li>
-      <li class="nav-item"><a href="community.html" class="nav-link">커뮤니티</a></li>
+      <li class="nav-item"><a href="recipe.php" class="nav-link">레시피</a></li>
+      <li class="nav-item"><a href="ranking.php" class="nav-link">랭킹</a></li>
+      <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
   </nav>
   <section class="container-fluid">
@@ -242,6 +241,8 @@
     });
 
   </script>
+  
+  
 </body>
 
 
