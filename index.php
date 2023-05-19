@@ -33,7 +33,6 @@
     .swiper-button-next {
       color: gray;
     }
-
   </style>
 </head>
 
@@ -100,6 +99,7 @@
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
+    
 
     <div id="todays-recommand" class="container mb-4 bg-white">
       <div class=" d-flex align-items-end justify-content-between row ">
@@ -108,10 +108,26 @@
           <div>이번 주 가장 많은 추천수를 받은 레시피입니다.</div>
           <div class="ml-auto">더보기</div>
         </div>
+        <?php
+        #post 테이블의 레코드 검색해서 출력하기
+        include_once('dbconn.php');
+        $today = date("Y-m-d");
+        $sql = "select * from post order by likes desc";
+        $result = $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
+        if ($result->num_rows > 0){ // 검색된 레코드가 있으면 
+          while($row = $result -> fetch_assoc()){
+        ?>
+        <div class="col-md-2 card">
+          <img src="IMG/ <?= $row['image']?> " class="card-img-top">
+          <div class="card-body"></div>
+        </div>
+        <!--<div class="col-md-2 card">
+          <img src="IMG/LOGO.png" class="card-img-top">
+          <div class="card-body"></div>
+        </div>
         <div class="col-md-2 card">
           <img src="IMG/LOGO.png" class="card-img-top">
           <div class="card-body"></div>
-
         </div>
         <div class="col-md-2 card">
           <img src="IMG/LOGO.png" class="card-img-top">
@@ -119,17 +135,14 @@
         </div>
         <div class="col-md-2 card">
           <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
+          <div class="card-body"></div>-->
         </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
+        <?php
+          }
+        }else echo "등록된 상품이 없습니다."
+        ?>
       </div>
+      
 
     </div>
     <div id="weekly-recommand" class="container mb-4 bg-white">
@@ -239,10 +252,9 @@
         delay: 5000,
       },
     });
-
   </script>
-  
-  
+
+
 </body>
 
 
