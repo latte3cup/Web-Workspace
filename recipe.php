@@ -20,16 +20,31 @@
   <title>주부들의 쉼터</title>
   <style>
     * {
-
-      /*
+/*
             border: 1px solid black;
 */
-
     }
 
     .toggle-element li {
       padding: 3px;
     }
+    .fixed-image {
+      height: 250px;
+      object-fit: cover;
+    }
+    .pf_img{
+      width: 30px;
+      height: 30px;
+    }
+    .sort_li{
+      border: 1px solid rgba(1,1,1,0.5);
+      margin-right: 3px;
+      border-radius: 4px;
+    }
+    .red-heart {
+      color: #fc46aa;
+    }
+    
 
   </style>
 </head>
@@ -121,48 +136,67 @@
         <a href="#" id="toggle-link">카테고리 닫기</a>
       </div>
 
-
     </div>
     <div class="container">
+      <?php
+      include_once('dbconn.php');
+      $sql = "select * from post order by posted_date desc";
+      $result = $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
+      ?>
       <div>
         <div style="position:absolute;">
-          총 <b>##</b>개의 레시피가 있습니다.
+          총 <b><?= $result->num_rows ?></b>개의 레시피가 있습니다.
         </div>
         <ul class="list-unstyled d-flex justify-content-end mb-1">
-          <li class="mr-2">추천순</li>
-          <li>시간순</li>
+          <li class="sort_li p-1 selected" style="color:green; font-weight: bold;">추천순</li>
+          <li class="sort_li p-1">시간순</li>
         </ul>
       </div>
-      <div class="row">
-        <div class="col-md-3">1</div>
-        <div class="col-md-3">2</div>
-        <div class="col-md-3">3</div>
-        <div class="col-md-3">4</div>
+      
+      
+      <div class="container mt-3">
+        <?php
+        if ($result->num_rows > 0){
+          for($i=0; $i<5; $i++){
+        ?>
+          <div class="row d-flex align-self-center mb-5">
+            <?php
+            $num = 0;
+            while($num<4){
+              $row = $result -> fetch_assoc();
+            ?>
+            <div class="card col-md-3 ">
+              <img src="IMG/<?=$row['image']?>" class="img-fluid card-img-top fixed-image">
+              <div class="card-body p-1 mt-1 d-flex flex-column justify-content-between">
+                <p class="mt-1"><?=$row['title']?></p>
+                <div class="container mt-1 d-flex align-items-end p-0" style="position:relative">
+                  <?php
+                  $id = $row['posted_ID'];
+
+                  $sql2 = "select * from member where id = '$id'";
+                  $result2 = $conn->query($sql2);
+                  $row2 = $result2 -> fetch_assoc();
+                  ?>
+
+                  <img src="IMG/<?=$row2['profile_img']?>" class="pf_img  rounded-circle">
+                  <div class="p-1"><?= $row2['name']?></div>
+                  <div style="position: absolute; top: 0; right: 0;">
+                    <div><i class="bi bi-heart-fill red-heart"></i><?= $row['likes'] ?></div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php
+              $num++;
+            }
+          ?>
+        </div>
+        <?php
+          }
+        }
+        ?>
       </div>
-      <div class="row">
-        <div class="col-md-3">5</div>
-        <div class="col-md-3">6</div>
-        <div class="col-md-3">7</div>
-        <div class="col-md-3">8</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">9</div>
-        <div class="col-md-3">10</div>
-        <div class="col-md-3">11</div>
-        <div class="col-md-3">12</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">13</div>
-        <div class="col-md-3">14</div>
-        <div class="col-md-3">15</div>
-        <div class="col-md-3">16</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">17</div>
-        <div class="col-md-3">18</div>
-        <div class="col-md-3">19</div>
-        <div class="col-md-3">20</div>
-      </div>
+      
       <navigation>
         <ul class="pagination d-flex justify-content-center">
           <li class="page-item">
