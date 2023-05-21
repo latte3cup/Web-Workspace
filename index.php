@@ -26,13 +26,23 @@
   <title>main_bootstrap</title>
   <style>
     * {
-      /*border: 1px solid black;*/
+    /*  border: 1px solid black;*/
     }
 
     .swiper-button-prev,
     .swiper-button-next {
       color: gray;
     }
+
+    .fixed-image {
+      height: 100px;
+      object-fit: cover;
+    }
+    
+    .profile_img{
+      
+    }
+
   </style>
 </head>
 
@@ -99,85 +109,94 @@
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
-    
 
-    <div id="todays-recommand" class="container mb-4 bg-white">
-      <div class=" d-flex align-items-end justify-content-between row ">
-        <div class="col-md-2">
-          <div class="fs-5 fw-bold">주간 레시피</div>
-          <div>이번 주 가장 많은 추천수를 받은 레시피입니다.</div>
-          <div class="ml-auto">더보기</div>
+
+    <div id="weekly-recommand" class="container mb-5 bg-white">
+      <div class=" d-flex align-items-start justify-content-between row ">
+        <div class="col-md-2 ">
+          <div class="fs-5 fw-bold mt-1 mb-1">주간 레시피</div>
+          <div><p>이번 주 가장 많은 추천수를 받은 레시피입니다.</p></div>
+          <div class="ml-auto text-center">더보기</div>
         </div>
         <?php
         #post 테이블의 레코드 검색해서 출력하기
         include_once('dbconn.php');
         $today = date("Y-m-d");
-        $sql = "select * from post order by likes desc";
+        $today_minus_7 = date("Y-m-d", strtotime($today . "-7 days"));
+        $sql = "select * from post where posted_date>='$today_minus_7' order by likes desc";
         $result = $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
         if ($result->num_rows > 0){ // 검색된 레코드가 있으면 
-          while($row = $result -> fetch_assoc()){
+          $num = 0;
+          while(($row = $result -> fetch_assoc()) and $num<5){
         ?>
-        <div class="col-md-2 card">
-          <img src="IMG/ <?= $row['image']?> " class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <!--<div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>-->
+        <div class="col-md-2 card p-0">
+          <img src="IMG/<?=$row['image']?>" class="card-img-top fixed-image">
+          <div class="card-body p-1 mt-1">
+            <p class="text-truncate "><?=$row['title']?></p>
+          </div>
         </div>
         <?php
+          $num++;
           }
         }else echo "등록된 상품이 없습니다."
         ?>
       </div>
-      
+
 
     </div>
-    <div id="weekly-recommand" class="container mb-4 bg-white">
-      <div class=" d-flex align-items-end justify-content-between row ">
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
+    <div id="monthly-recommand" class="container mb-5 bg-white">
+      <div class=" d-flex align-items-start justify-content-between row ">
+        <?php
+        $today_minus_30 = date("Y-m-d", strtotime($today . " -30 days"));
+        $sql2 = "select * from post where posted_date>='$today_minus_30' order by likes desc";
+        $result2 = $conn->query($sql2);
+        if ($result2->num_rows > 0){ // 검색된 레코드가 있으면 
+          $num = 0;
+          while(($row = $result2 -> fetch_assoc()) and $num<5){  
+        ?>
+        <div class="col-md-2 card p-0">
+          <img src="IMG/<?=$row['image']?>" class="card-img-top fixed-image">
+          <div class="card-body p-1 mt-1">
+            <p class="text-truncate"><?=$row['title']?></p>
+          </div>
+        </div>
+        <?php
+          $num++;
+          }
+        }else echo "등록된 상품이 없습니다.";
+        ?>
 
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
-        <div class="col-md-2 card">
-          <img src="IMG/LOGO.png" class="card-img-top">
-          <div class="card-body"></div>
-        </div>
         <div class="col-md-2">
-          <div class="fs-5 fw-bold">월간 레시피</div>
-          <div>이번 달 가장 많은 추천수를 받은 레시피입니다.</div>
-          <div class="ml-auto">더보기</div>
+          <div class="fs-5 fw-bold mt-1 mb-1">월간 레시피</div>
+          <div><p>이번 달 가장 많은 추천수를 받은 레시피입니다.</p></div>
+          <div class="ml-auto text-center">더보기</div>
         </div>
       </div>
 
     </div>
-    <div class="container mb-4 bg-white">
+    <div class="container mb-5 bg-white">
       <div>요리인 소개 </div>
+      <div class=" d-flex align-items-start justify-content-between row ">
+        <?php
+      $sql3 = "SELECT * FROM member ORDER BY RAND() LIMIT 11";
+      $result3 = $conn->query($sql3);
+      if ($result3->num_rows > 0){ // 검색된 레코드가 있으면 
+        $num = 0;
+        while(($row = $result3 -> fetch_assoc()) and $num<11){  
+      ?>
+      <div class="col-md-1 card p-0">
+        <img src="IMG/<?=$row['profile_img']?>" class="card-img-top profile_img rounded-circle">
+        <div class="card-body p-0">
+          <p class="text-center  m-0"><?=$row['name']?></p>
+        </div>
+      </div>
+      <?php
+        $num++;
+        }
+      }
+      ?>
+      </div>
+
     </div>
 
     <div class="container mb-4 bg-white">
@@ -252,6 +271,7 @@
         delay: 5000,
       },
     });
+
   </script>
 
 
