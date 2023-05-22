@@ -38,9 +38,20 @@
       height: 100px;
       object-fit: cover;
     }
-    
-    .profile_img{
-      
+    .rank_icon{
+      border : 1px solid black;
+      padding-left:5px;
+      padding-right: 5px;
+      background-color: white;
+      border-radius: 5px;
+    }
+    .more_btn{
+      border : 1px solid green;
+      border-radius: 5px;
+    }
+    a{
+      text-decoration: none;
+      color: inherit;
     }
 
   </style>
@@ -87,8 +98,8 @@
   <nav>
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
       <li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
-      <li class="nav-item"><a href="recipe.php" class="nav-link">레시피</a></li>
-      <li class="nav-item"><a href="ranking.php" class="nav-link">랭킹</a></li>
+      <li class="nav-item"><a href="recipe.php?sort=date" class="nav-link">레시피</a></li>
+      <li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
       <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
   </nav>
@@ -116,7 +127,7 @@
         <div class="col-md-2 ">
           <div class="fs-5 fw-bold mt-1 mb-1">주간 레시피</div>
           <div><p>이번 주 가장 많은 추천수를 받은 레시피입니다.</p></div>
-          <div class="ml-auto text-center">더보기</div>
+          <div class="ml-auto text-center more_btn"><a href="ranking.php?date=monthly">더보기</a></div>
         </div>
         <?php
         #post 테이블의 레코드 검색해서 출력하기
@@ -127,9 +138,12 @@
         $result = $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
         if ($result->num_rows > 0){ // 검색된 레코드가 있으면 
           $num = 0;
+          $rank_num = 1;
           while(($row = $result -> fetch_assoc()) and $num<5){
+            
         ?>
-        <div class="col-md-2 card p-0">
+        <div class="col-md-2 card p-0 position-relative">
+          <div class="position-absolute top-0 left-10 rank_icon "><?= $rank_num++ ?></div>
           <img src="IMG/<?=$row['image']?>" class="card-img-top fixed-image">
           <div class="card-body p-1 mt-1">
             <p class="text-truncate "><?=$row['title']?></p>
@@ -152,9 +166,11 @@
         $result2 = $conn->query($sql2);
         if ($result2->num_rows > 0){ // 검색된 레코드가 있으면 
           $num = 0;
+          $rank_num=1;
           while(($row = $result2 -> fetch_assoc()) and $num<5){  
         ?>
-        <div class="col-md-2 card p-0">
+        <div class="col-md-2 card p-0 position-relative">
+          <div class="position-absolute top-0 left-10 rank_icon "><?= $rank_num++ ?></div>
           <img src="IMG/<?=$row['image']?>" class="card-img-top fixed-image">
           <div class="card-body p-1 mt-1">
             <p class="text-truncate"><?=$row['title']?></p>
@@ -169,7 +185,7 @@
         <div class="col-md-2">
           <div class="fs-5 fw-bold mt-1 mb-1">월간 레시피</div>
           <div><p>이번 달 가장 많은 추천수를 받은 레시피입니다.</p></div>
-          <div class="ml-auto text-center">더보기</div>
+          <div class="ml-auto text-center more_btn"><a href="ranking.php?date=monthly">더보기</a></div>
         </div>
       </div>
 

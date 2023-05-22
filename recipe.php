@@ -44,6 +44,17 @@
     .red-heart {
       color: #fc46aa;
     }
+    .sort_selected{
+      color:green;
+      font-weight: bold;
+    }
+    .sort-btn{
+      text-decoration: none;
+      color : inherit;
+    }
+    .sort-btn:hover{
+      color: inherit;
+    }
     
 
   </style>
@@ -91,7 +102,7 @@
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
       <li class="nav-item"><a href="index.php" class="nav-link">HOME</a></li>
       <li class="nav-item selected"><a href="recipe.php" class="nav-link">레시피</a></li>
-      <li class="nav-item"><a href="ranking.php" class="nav-link">랭킹</a></li>
+      <li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
       <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
   </nav>
@@ -140,16 +151,24 @@
     <div class="container">
       <?php
       include_once('dbconn.php');
-      $sql = "select * from post order by posted_date desc";
-      $result = $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
+      $sql_date = "select * from post order by posted_date desc";
+      $sql_recommend = "select * from post order by likes desc";
+      $sort = $_GET['sort'];
+      if($sort=='date'){
+        $sql = $sql_date;
+      }elseif($sort=='recommend'){
+        $sql = $sql_recommend;
+      }
+      
+      $result= $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
       ?>
       <div>
         <div style="position:absolute;">
           총 <b><?= $result->num_rows ?></b>개의 레시피가 있습니다.
         </div>
         <ul class="list-unstyled d-flex justify-content-end mb-1">
-          <li class="sort_li p-1 selected" style="color:green; font-weight: bold;">추천순</li>
-          <li class="sort_li p-1">시간순</li>
+          <li class="sort_li p-1 <?php if($sort=='date') echo "selected sort_selected"; ?>" ><a class="sort-btn" href="recipe.php?sort=date">시간순</a></li>
+          <li class="sort_li p-1 <?php if($sort=='recommend') echo "selected sort_selected"; ?>"><a class="sort-btn" href="recipe.php?sort=recommend">추천순</a></li>
         </ul>
       </div>
       
@@ -163,7 +182,7 @@
             <?php
             $num = 0;
             while($num<4){
-              $row = $result -> fetch_assoc();
+              $row = $result-> fetch_assoc();
             ?>
             <div class="card col-md-3 ">
               <img src="IMG/<?=$row['image']?>" class="img-fluid card-img-top fixed-image">
@@ -239,8 +258,14 @@
     });
 
   </script>
-
-
+  
+  <!--클릭 시 정렬 방식 변경-->
+  <script>
+    document.ready(function(){
+      $('#c')
+      
+    })
+  </script>
 
 
 </body>

@@ -25,6 +25,29 @@
             border: 1px solid black;
 */
     }
+    .fixed-image {
+      height: 250px;
+      object-fit: cover;
+    }
+    .pf_img{
+      width: 30px;
+      height: 30px;
+    }
+    .red-heart {
+      color: #fc46aa;
+    }
+    .date_li{
+      border: 1px solid rgba(1,1,1,0.5);
+      margin-right: 3px;
+      border-radius: 4px;
+    }
+    .date-btn{
+      text-decoration: none;
+      color : inherit;
+    }
+    .date-btn:hover{
+      color: inherit;
+    }
 
   </style>
 </head>
@@ -70,7 +93,7 @@
   <nav>
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
       <li class="nav-item"><a href="index.php" class="nav-link">HOME</a></li>
-      <li class="nav-item"><a href="recipe.php" class="nav-link">레시피</a></li>
+      <li class="nav-item"><a href="recipe.php?sort=date" class="nav-link">레시피</a></li>
       <li class="nav-item selected"><a href="ranking.php" class="nav-link">랭킹</a></li>
       <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
@@ -81,67 +104,76 @@
 
 
     </div>
-    <div class="container" style="position: relative;">
-      <div>
-        <div style="position:absolute;">
-          랭킹은 상위 <b>50</b>개만 표시 됩니다.
+    <?php
+    include_once('dbconn.php');
+    $today =date('Y-m-d');
+    $today_minus_7 = date("Y-m-d", strtotime($today . "-7 days"));
+    $today_minus_30 = date("Y-m-d", strtotime($today . " -30 days"));
+    $date = $_GET['date'];
+    $sql_weekly = "select * from post where posted_date>='$today_minus_7' order by likes desc";
+    $sql_monthly = "select * from post where posted_date>='$today_minus_30' order by likes desc";
+    if($date=='weekly'){
+        $sql = $sql_weekly;
+      }elseif($date=='monthly'){
+        $sql = $sql_monthly;
+      }
+    $result= $conn->query($sql); //  select 실행으로 검색된레코드 집합을 반환 
+    ?>
+    <div>
+      <div style="position:absolute;">
+        랭킹은 상위 <b>24</b>개만 표시됩니다.
+      </div>
+      <ul class="list-unstyled d-flex justify-content-end mb-1">
+        <li class=" date_li p-1" >
+          <a class="date-btn" href="ranking.php?date=weekly">주간</a>
+        </li>
+        <li class=" date_li p-1" >
+          <a class="date-btn" href="ranking.php?date=monthly">월간</a>
+        </li>
+      </ul>
+    </div>
+    <hr>
+    <div class="container mt-3">
+      <?php
+        if ($result->num_rows > 0){
+          for($i=0; $i<6; $i++){
+        ?>
+      <div class="row d-flex align-self-center mb-5">
+        <?php
+            $num = 0;
+            while($num<4){
+              $row = $result-> fetch_assoc();
+            ?>
+        <div class="card col-md-3 ">
+          <img src="IMG/<?=$row['image']?>" class="img-fluid card-img-top fixed-image">
+          <div class="card-body p-1 mt-1 d-flex flex-column justify-content-between">
+            <p class="mt-1"><?=$row['title']?></p>
+            <div class="container mt-1 d-flex align-items-end p-0" style="position:relative">
+              <?php
+                  $id = $row['posted_ID'];
+
+                  $sql2 = "select * from member where id = '$id'";
+                  $result2 = $conn->query($sql2);
+                  $row2 = $result2 -> fetch_assoc();
+                  ?>
+
+              <img src="IMG/<?=$row2['profile_img']?>" class="pf_img  rounded-circle">
+              <div class="p-1"><?= $row2['name']?></div>
+              <div style="position: absolute; top: 0; right: 0;">
+                <div><i class="bi bi-heart-fill red-heart"></i><?= $row['likes'] ?></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <ul class="list-unstyled d-flex justify-content-end mb-1">
-          <li class="mr-2">주간</li>
-          <li>월간</li>
-        </ul>
+        <?php
+              $num++;
+            }
+          ?>
       </div>
-      <div class="row">
-        <div class="col-md-3">1</div>
-        <div class="col-md-3">2</div>
-        <div class="col-md-3">3</div>
-        <div class="col-md-3">4</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">5</div>
-        <div class="col-md-3">6</div>
-        <div class="col-md-3">7</div>
-        <div class="col-md-3">8</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">9</div>
-        <div class="col-md-3">10</div>
-        <div class="col-md-3">11</div>
-        <div class="col-md-3">12</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">13</div>
-        <div class="col-md-3">14</div>
-        <div class="col-md-3">15</div>
-        <div class="col-md-3">16</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">17</div>
-        <div class="col-md-3">18</div>
-        <div class="col-md-3">19</div>
-        <div class="col-md-3">20</div>
-      </div>
-      <navigation>
-        <ul class="pagination d-flex justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only"></span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only"></span>
-            </a>
-          </li>
-        </ul>
-      </navigation>
+      <?php
+          }
+        }
+        ?>
     </div>
 
   </section>
@@ -164,12 +196,7 @@
 
   </script>
 
-
-
-
 </body>
-
-
 
 </html>
 <!---->
