@@ -65,6 +65,17 @@
     .list-group-item{
       margin-right: 14px;
     }
+    .cg_selected{
+      border-radius: 10px;
+      background-color: #b1d973;
+      color: white;
+    }
+    #toggle-link{
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 5px;
+      font-size: 0.9em;
+    }
     
 
   </style>
@@ -117,7 +128,7 @@
     </ul>
   </nav>
   <section class="container-fluid mt-2">
-    <div class="container mb-5 bg-white ">
+    <div class="container mb-5 bg-white pb-2">
       <div class="toggle-element ml-3">
         <?php
         $type = $_GET['t']; //종류별
@@ -127,52 +138,50 @@
         ?>
         
         <?php
+        #php 변수를 이용한 스크립트 생성 php구문이 끝나고 자바스크립트 실행으로 함수형으로 선언
         echo "<script>
-                const type = document.querySelector(li[value=". $type ."]);
-                const material = document.querySelector(li[value=". $material ."]);
-                const method = document.querySelector(li[value=" . $method ."]);
-              
-                type.class = 'selected';
-                material.class = 'selected';
-                method.class= 'selected';
-          
-        </script>";
-        
+                function applyCss() {
+                   document.getElementById('$type').className='selected cg_selected';
+                   document.getElementById('$material').className='selected cg_selected';
+                   document.getElementById('$method').className='selected cg_selected';
+                }
+            </script>";
         ?>
-        <ul class="list-unstyled list-group d-flex flex-row">
+        <!--쿼리 셀렉터가 숫자는 못받음;-->
+        <ul class="mb-2 list-unstyled list-group d-flex flex-row"> 
           <li class="list-group-item px-3">종류별</li>
-          <li value=0 onclick="classification(0)">전체</li>
-          <li value=1 onclick="classification(1)">반찬</li>
-          <li value=2 onclick="classification(2)">국/탕</li>
-          <li value=3 onclick="classification(3)">개</li>
-          <li value=4 onclick="classification(4)">디저트</li>
-          <li vlaue=5 onclick="classification(5)">면</li>
-          <li value=6 onclick="classification(6)">빵</li>
-          <li value=7 onclick="classification(7)">음료</li>
+          <li id='0' value=0 onclick="classification(0)">전체</li>
+          <li id='1' value=1 onclick="classification(1)">반찬</li>
+          <li id='2' value=2 onclick="classification(2)">국/탕</li>
+          <li id='3' value=3 onclick="classification(3)">개</li>
+          <li id='4' value=4 onclick="classification(4)">디저트</li>
+          <li id='5' vlaue=5 onclick="classification(5)">면</li>
+          <li id='6' value=6 onclick="classification(6)">빵</li>
+          <li id='7' value=7 onclick="classification(7)">음료</li>
         </ul>
-        <ul class="list-unstyled list-group d-flex flex-row">
+        <ul class=" mb-2 list-unstyled list-group d-flex flex-row">
           <li class="list-group-item px-3">재료별</li>
-          <li value=10 onclick="classification(10)">전체</li>
-          <li value=11 onclick="classification(11)">육류</li>
-          <li value=12 onclick="classification(12)">채소류</li>
-          <li value=13 onclick="classification(13)">해물류</li>
-          <li value=14 onclick="classification(14)">달걀/유제품</li>
-          <li value=15 onclick="classification(15)">곡류</li>
-          <li value=16 onclick="classification(16)">과일류</li>  
+          <li id='10' value=10 onclick="classification(10)">전체</li>
+          <li id='11' value=11 onclick="classification(11)">육류</li>
+          <li id='12' value=12 onclick="classification(12)">채소류</li>
+          <li id='13' value=13 onclick="classification(13)">해물류</li>
+          <li id='14' value=14 onclick="classification(14)">달걀/유제품</li>
+          <li id='15' value=15 onclick="classification(15)">곡류</li>
+          <li id='16' value=16 onclick="classification(16)">과일류</li>  
         </ul>
         <ul class="list-unstyled list-group d-flex flex-row">
           <li class="list-group-item px-3">방법별</li>
-          <li value=20 onclick="classification(20)">전체</li>
-          <li value=21 onclick="classification(21)">볶음</li>
-          <li value=22 onclick="classification(22)">끓이기</li>
-          <li value=23 onclick="classification(23)">부침</li>
-          <li value=24 onclick="classification(24)">굽기</li>
-          <li value=25 onclick="classification(25)">비빔</li>
-          <li value=26 onclick="classification(26)">찜</li>
-          <li value=27 onclick="classification(27)">튀김</li>
-          <li value=28 onclick="classification(28)">삶기</li>
+          <li id='20' value=20 onclick="classification(20)">전체</li>
+          <li id='21' value=21 onclick="classification(21)">볶음</li>
+          <li id='22' value=22 onclick="classification(22)">끓이기</li>
+          <li id='23' value=23 onclick="classification(23)">부침</li>
+          <li id='24' value=24 onclick="classification(24)">굽기</li>
+          <li id='25' value=25 onclick="classification(25)">비빔</li>
+          <li id='26' value=26 onclick="classification(26)">찜</li>
+          <li id='27' value=27 onclick="classification(27)">튀김</li>
+          <li id='28' value=28 onclick="classification(28)">삶기</li>
         </ul>
-        <hr>
+        <hr class="mb-2">
       </div>
       <div class="container-fluid text-center">
         <a href="#" id="toggle-link">카테고리 닫기</a>
@@ -324,6 +333,9 @@
     
     }
   </script>
+  
+  <!--선택된 카테고리 CSS적용 #line131-->
+  <script>applyCss()</script>
   
 
 </body>
