@@ -98,7 +98,7 @@
   <nav>
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
       <li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
-      <li class="nav-item"><a href="recipe.php?sort=date" class="nav-link">레시피</a></li>
+      <li class="nav-item"><a href="recipe.php?sort=date&t=0&m=10&h=20" class="nav-link">레시피</a></li>
       <li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
       <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
