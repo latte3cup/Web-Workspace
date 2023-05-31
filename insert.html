@@ -40,6 +40,11 @@
       max-height: 250px;
 
     }
+    .stepImg{
+      width: 110px;
+      height:110px;
+      object-fit: cover;
+    }
 
   </style>
 </head>
@@ -207,33 +212,33 @@
       </div>
     </div>
 
+    <!--요리 단계 필드-->
     <div class="container bg-white mt-4">
       <p class="container fw-bold  mt-3 pt-3"> 요리 순서</p>
       <hr>
       <div class="container" id="Step-Aria">
         <div class="container row mb-2 ">
+          <div class="col-md-1"></div>
           <div class="col-md-1">
             Step1
           </div>
           <div class="col-md-6">
-            <textarea class=" form-control" rows="4" placeholder="이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength=200 style="resize: none" value="info1"></textarea>
+            <textarea class=" form-control" rows="4" placeholder="이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength=200 style="resize: none" name="info1"></textarea>
           </div>
-          <div class="col-md-5">
-            <input type="hidden" name="stepImg" id="step1_Img" value="">
-            <img src="IMG/stepInputImg.gif" style="max-width: 110px;">
-
+          <div class="col-md-4">
+            <img id="img1" src="IMG/stepInputImg.gif" class="stepIMG" onclick="set_step_img(1)">
+            <input type="file" class="upload-step-btn" accept="image/* " required style="display: none;" name="step_img1">
           </div>
         </div>
       </div>
 
+      
       <div id="button-aria" class="d-flex justify-content-center mt-2">
         <button id="addStepBtn">추가하기</button>
       </div>
 
     </div>
     <button type="button" onclick="insert()">전송</button>
-
-
   </form>
   <footer>
     <pre>(주)주부들의 쉼터 : 경기도 포천시 호국로 1007x
@@ -242,6 +247,7 @@
       </pre>
   </footer>
 
+  <!--메인재료 필드 추가-->
   <script>
     var mainNum = 1;
     $(document).ready(function() {
@@ -273,8 +279,8 @@
     });
 
   </script>
-
-
+  
+  <!--서브재료 필드 추가-->
   <script>
     var subNum = 1;
     $(document).ready(function() {
@@ -306,53 +312,78 @@
     });
 
   </script>
+  
+  
+  
   <script>
     $(document).ready(function() {
       // 추가 버튼 클릭 시 동작
-      var num = 2;
+      var stepNum = 2;
       $("#addStepBtn").click(function() {
+        if (stepNum == 11) {
+          alert('스텝은 최대 10단계까지 등록 가능합니다.');
+          return;
+        }
         // 새로운 스텝 요소를 생성하여 컨테이너에 추가
         var newStep = `
       <div class="container row mb-2" >
+          <div class="col-md-1"></div>
         <div class="col-md-1">
-          Step${num}
+          Step${stepNum}
         </div>
         <div class="col-md-6">
-          <textarea class="form-control" rows="4" placeholder="이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength="200" style="resize: none" value="info${num}"></textarea>
+          <textarea class="form-control" rows="4" placeholder="이 레시피의 간단한 설명을 입력해 주세요. 예) 혼자 자취인들을 위한 간단 제육볶음 레시피!" maxlength="200" style="resize: none" name="info${stepNum}"></textarea>
         </div>
-        <div class="col-md-5">
-          <input type="hidden" name="stepImg" id="step${num}_Img" value="">
-          <img src="IMG/stepInputImg.gif" style="max-width: 110px;">
+        <div class="col-md-4">
+          <img id="img${stepNum}" src="IMG/stepInputImg.gif" class="stepImg" onclick="set_step_img(${stepNum})">
+          <input type="file" class="upload-step-btn" accept="image/* " required style="display: none;" name="step_img${stepNum}">
         </div>
       </div>
     `;
         $("#Step-Aria").append(newStep);
-        num++;
+        stepNum++;
       });
     });
 
   </script>
 
-  <script>
+  <script>  // 섬네일 이미지의 효과 변경
     // 이미지 업로드 영역
     const fileInput = document.querySelector('.upload-btn');
     // 바꿀 이미지 영역
     const imageElement = document.getElementById('thumbPhoto');
     imageElement.addEventListener('click', () => fileInput.click()); //업로드 버튼 클릭을 호출
-
     fileInput.addEventListener('change', function() {
       if (fileInput.files && fileInput.files[0]) {
         var reader = new FileReader(); //이미지 파일 읽기
         reader.onload = function(e) {
           //이미지 파일의 위치
           let dataURL = e.target.result;
-
           imageElement.src = dataURL;
         };
         reader.readAsDataURL(fileInput.files[0]);
       }
     });
 
+  </script>
+  
+  <!--스텝 이미지의 효과 변경-->
+  <script>// 스텝은 고정 요소가 아니기 떄문에 함수로 처리해야함. 이럴바엔 섬네일 이미지도 함수로 처리하는 것이 좋았을 듯
+    function set_step_img(num){ 
+      const fileInput = document.getElementsByName('step_img' + num)[0];
+      const imageElement = document.getElementById('img' + num);
+      fileInput.click();
+      fileInput.addEventListener('change', function() {
+      if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          let dataURL = e.target.result;
+          imageElement.src = dataURL;
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    });
+    }
   </script>
 
   <script>
