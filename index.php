@@ -22,8 +22,11 @@
   <!--swiper-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
+  <script src="js/search.js"></script>
+    
   <title>main_bootstrap</title>
+    
+  <!--스타일-->
   <style>
     * {
     /*  border: 1px solid black;*/
@@ -53,6 +56,10 @@
       text-decoration: none;
       color: inherit;
     }
+    .post{
+        cursor: pointer;
+          
+    }
 
   </style>
 </head>
@@ -66,15 +73,16 @@
     $login = true;
   }
   ?>
+    <!--검색 바, 회원접근-->
   <header>
     <div class="container-fluid mt-2 mb-2 d-flex" style="max-width: 800px;">
       <div class="input-group">
         <a href="index.php">
           <img src="IMG/LOGO.png" class="img-fluid">
         </a>
-        <input type="text" class="form-control h-50 align-self-center shadow" placeholder="검색할 레시피를 입력하세요." maxlength=15>
+        <input type="text" id="searchInput" class="form-control h-50 align-self-center shadow" placeholder="검색할 레시피를 입력하세요." maxlength=15  onkeypress="searchEnter(event)">
         <div class="input-group-append align-self-center shadow">
-          <button class="btn btn-outline-secondary" type="submit">검색</button>
+          <button class="btn btn-outline-secondary" type="submit" onclick="searchRecipe()" >검색</button>
         </div>
       </div>
       <ul class="list-unstyled d-flex align-items-end" style="padding-left: 10px;">
@@ -87,7 +95,7 @@
         </div>
         <div class="circle-icon">
           <?php if($login){ ?>
-          <a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+          <a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
           <?php }else { ?>
           <a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
           <?php } ?>
@@ -95,6 +103,7 @@
       </ul>
     </div>
   </header>
+    <!--메뉴 바-->
   <nav>
     <ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
       <li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
@@ -102,10 +111,11 @@
       <li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
       <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
-  </nav>
+  </nav> 
+    
   <section class="container-fluid">
 
-    <!-- Slider main container -->
+    <!-- Slider 컨테이너 -->
     <div class="swiper container mb-4">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
@@ -121,7 +131,7 @@
       <div class="swiper-button-next"></div>
     </div>
 
-
+    <!--주간 레시피 순위-->
     <div id="weekly-recommand" class="container mb-5 bg-white">
       <div class=" d-flex align-items-start justify-content-between row ">
         <div class="col-md-2 ">
@@ -142,22 +152,25 @@
           while(($row = $result -> fetch_assoc()) and $num<5){
             
         ?>
-        <div class="col-md-2 card p-0 position-relative">
+        
+        <div class="col-md-2 card p-0 position-relative post" onclick="goPost(<?= $row['recipe_No'] ?>)">
           <div class="position-absolute top-0 left-10 rank_icon "><?= $rank_num++ ?></div>
           <img src="IMG/<?=$row['image']?>" class="card-img-top fixed-image">
           <div class="card-body p-1 mt-1">
             <p class="text-truncate "><?=$row['title']?></p>
           </div>
         </div>
+    
         <?php
           $num++;
           }
-        }else echo "등록된 상품이 없습니다."
+        }
         ?>
       </div>
-
-
+        
     </div>
+      
+    <!--월간 레시피-->
     <div id="monthly-recommand" class="container mb-5 bg-white">
       <div class=" d-flex align-items-start justify-content-between row ">
         <?php
@@ -169,7 +182,7 @@
           $rank_num=1;
           while(($row = $result2 -> fetch_assoc()) and $num<5){  
         ?>
-        <div class="col-md-2 card p-0 position-relative">
+        <div class="col-md-2 card p-0 position-relative post" onclick="goPost(<?= $row['recipe_No'] ?>)">
           <div class="position-absolute top-0 left-10 rank_icon "><?= $rank_num++ ?></div>
           <img src="IMG/<?=$row['image']?>" class="card-img-top fixed-image">
           <div class="card-body p-1 mt-1">
@@ -190,6 +203,8 @@
       </div>
 
     </div>
+      
+    <!-- 유저 랜덤 추천-->
     <div class="container mb-5 bg-white">
       <div>요리인 소개 </div>
       <div class=" d-flex align-items-start justify-content-between row ">
@@ -214,7 +229,9 @@
       </div>
 
     </div>
-
+      
+    
+    <!--영상으로 레시피 보기 // 외부 유튜브 링크-->
     <div class="container mb-4 bg-white">
       <div class="mb-2"><span class="fs-5 fw-bold" style="color: green">영상</span>으로 보는 레시피 </div>
       <div class="container">
@@ -254,12 +271,6 @@
       </div>
     </div>
 
-
-
-
-
-
-
   </section>
   <footer>
     <pre>(주)주부들의 쉼터 : 경기도 포천시 호국로 1007
@@ -268,6 +279,7 @@
       </pre>
   </footer>
 
+  <!--Swiper 스크립트-->
   <script>
     const swiper = new Swiper('.swiper', {
       // Optional parameters
@@ -289,7 +301,14 @@
     });
 
   </script>
-
+    
+    
+  <script>
+    function goPost(post){
+        let link = "post.php?no=" + post;
+        window.location.href=link;
+    }
+  </script>
 
 </body>
 
