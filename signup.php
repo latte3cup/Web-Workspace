@@ -8,7 +8,7 @@ $gender = $_POST['gender'];
 $regdate = date('y/m/d');
 
 
-$sql = "INSERT INTO MEMBER VALUES('$id','$pwd','$uname','$gender','$regdate')";
+$sql = "INSERT INTO MEMBER(id,pwd,name,gender,pdate) VALUES('$id','$pwd','$uname','$gender','$regdate')";
 
 if($conn -> query($sql)){ 
   echo "<script> alert('회원가입 성공') </script>";

@@ -119,7 +119,7 @@
 				<div style="position:relative;" id=img_part class="">
 					<img src="IMG/<?= $thumb_img ?>" class="mt-3 mb-3" id="thumb_img">
 					<div style="position:absolute; bottom: -30px;" id="pro_img">
-						<a href="#"><img src="IMG/<?= $profile_img?>" style="width:80px; border-radius:40px; border : 1px solid gray; border-width: 3px;"></a>
+						<img src="IMG/<?= $profile_img?>" style="width:80px; border-radius:40px; border : 1px solid gray; border-width: 3px;">
 					</div>
 				</div>
 				<div class="mt-4"><?=$posted_name?></div>
@@ -152,7 +152,7 @@
 				<hr>
 				<div class="container d-flex justify-content-between">
 					<p class="mt-auto"><?= $posted_date?></p>
-					<a href="#" class="d-flex" style="font-size:30px; text-decoration: none;">
+					<a onclick="updateLike()" class="d-flex" style="font-size:30px; text-decoration: none;">
 						<i class="bi bi-heart-fill " style="color:pink;"></i>
 						<p style="color:black; min-width:20px; padding-left:10px;"><?= $likes?></p>
 					</a>
@@ -291,6 +291,33 @@
 		imgCenter();
 		window.addEventListener('resize', imgCenter);
 
+	</script>
+	<script> /*좋아요 버튼 클릭시 추천수가 오르면서 즐겨찾기에 추가*/
+		function updateLike() {
+			if(! <?= $login ?>){
+				alert('*좋아요* 하려면 로그인이 필요합니다.');
+				return;
+			}
+			let recipe_No = <?= $recipe_No ?>;
+			const xhs = new XMLHttpRequest();
+			xhs.onreadystatechange = function() {
+			  if (xhs.readyState === xhs.DONE) {
+				if (xhs.status === 200) {
+				  const result = JSON.parse(xhs.responseText);
+				  if (result.succ === true){
+					  alert('*좋아요*를 눌렀습니다!!');
+				  }else if(result.succ == 'duplication'){
+					   alert('이미 좋아요한 게시물입니다.');
+				  }else{
+					  alert('db 연결 오류');
+				  }
+				}
+			  }
+			}
+			xhs.open('GET', 'updateLike.php?no=' + <?= $recipe_No ?>);
+			xhs.send();
+		  }
+  
 	</script>
 	<script>
 		function getName(value) {

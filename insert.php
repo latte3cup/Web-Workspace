@@ -81,7 +81,7 @@
         </div>
         <div class="circle-icon">
           <?php if($login){ ?>
-          <a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+          <a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
           <?php }else { ?>
           <a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
           <?php } ?>
@@ -420,4 +420,8 @@
 
   </script>
 </body>
+
+
+
 </html>
+<!---->

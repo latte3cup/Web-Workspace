@@ -24,7 +24,7 @@
 	<title>main_bootstrap</title>
 	<style>
 		* {
-/*
+			/*
 			border: 1px solid black;
 */
 		}
@@ -39,9 +39,13 @@
 			padding: 5px;
 			cursor: pointer;
 			border-bottom: 1px solid black;
-			box-shadow:  2px 2px gray;
+			box-shadow: 2px 2px gray;
 		}
-		#innerHTML{
+		footer{
+			margin-top: 30px;
+		}
+
+		#innerHTML {
 			
 		}
 
@@ -76,7 +80,7 @@
 				</div>
 				<div class="circle-icon">
 					<?php if($login){ ?>
-					<a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+					<a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
 					<?php }else { ?>
 					<a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
 					<?php } ?>
@@ -101,11 +105,11 @@
 				<div class="col-md-3 sidebar p-0 bg-white">
 					<ul class="list-unstyled fw-bold mb-0">
 						<li class="menus mt-2 mb-2" onclick="logOut()">로그아웃</li>
-						<li class="menus mb-2" onclick="loadPage()">공지사항</li>
-						<li class="menus mb-2">정보수정</li>
-						<li class="menus mb-2">구독한 유저</li>
-						<li class="menus mb-2" >관심 있는 게시물</li>
-						<li class="menus" onclick="loadPage('withdrawal')">회원탈퇴</li>
+						<li class="menus mb-2" onclick="loadPage('announcement.html')">공지사항</li>
+						<li class="menus mb-2" onclick="loadPage('signModify.php')">정보수정</li>
+						<li class="menus mb-2" onclick="loadPage('subscribedUser.php')">구독한 유저</li>
+						<li class="menus mb-2" onclick="loadPage('likedPosts.php')">관심 있는 게시물</li>
+						<li class="menus" onclick="loadPage('confrim.html')">회원탈퇴</li>
 					</ul>
 				</div>
 				<div class="col-md-9">
@@ -128,25 +132,35 @@
 				location.href = "logOut.php";
 			}
 		}
- 
+
 	</script>
 
 	<script>
-		function loadPage( funcName ) {
+		function loadPage(funcName) {
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					var response = xhr.responseText;
 					document.getElementById("innerHTML").innerHTML = response;
+					loadScript('signModify.js');
 				}
+				
 			};
-			var pageName = funcName + ".php";
-			xhr.open("GET", "confirm.html", true);
+			xhr.open("GET", funcName, true);
 			xhr.send();
-
+			
 		}
 
 	</script>
+	<script>
+		function loadScript(jsfile) {
+			const script = document.createElement('script');
+			script.src = "js/" + jsfile; // 외부 페이지에 포함된 스크립트 파일 경로
+			document.body.appendChild(script);
+		}
+	</script>
+
+
 </body>
 
 
