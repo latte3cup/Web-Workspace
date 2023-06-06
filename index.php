@@ -71,6 +71,7 @@
   if(isset($_SESSION['current_uid'])){
     $uname = $_SESSION['current_uname'];
     $login = true;
+	echo "<script>alert($uname)</script>";
   }
   ?>
     <!--검색 바, 회원접근-->
@@ -109,7 +110,7 @@
       <li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
       <li class="nav-item"><a href="recipe.php?sort=date&t=0&m=10&h=20" class="nav-link">레시피</a></li>
       <li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
-      <li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
+      <li class="nav-item "><a href="community.php" class="nav-link">커뮤니티</a></li>
     </ul>
   </nav> 
     
@@ -137,7 +138,7 @@
         <div class="col-md-2 ">
           <div class="fs-5 fw-bold mt-1 mb-1">주간 레시피</div>
           <div><p>이번 주 가장 많은 추천수를 받은 레시피입니다.</p></div>
-          <div class="ml-auto text-center more_btn"><a href="ranking.php?date=monthly">더보기</a></div>
+          <div class="ml-auto text-center more_btn"><a href="ranking.php?date=weekly">더보기</a></div>
         </div>
         <?php
         #post 테이블의 레코드 검색해서 출력하기
