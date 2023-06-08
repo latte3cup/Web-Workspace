@@ -2,8 +2,6 @@ const fileInput = document.querySelector('.upload-btn');
 const imageElement = document.getElementById('pro_Photo');
 
 
-
-
 imageElement.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', function () {
 
