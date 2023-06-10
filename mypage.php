@@ -21,6 +21,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 	<!--기본 프레임 css-->
 	<link rel="stylesheet" href="css/base.css">
+    <script src="js/search.js"></script>
+    
 	<title>main_bootstrap</title>
 	<style>
 		* {
@@ -45,27 +47,26 @@
 			margin-top: 30px;
 		}
 
-		#innerHTML {
-			
-		}
 
 	</style>
 </head>
 
 <body>
 	<?php
-  session_start();
-  $login= false;
-  if(isset($_SESSION['current_uid'])){
-    $uname = $_SESSION['current_uname'];
-    $login = true;
-  }
-  ?>
+      session_start();
+      $login= false;
+      if(isset($_SESSION['current_uid'])){
+        $uname = $_SESSION['current_uname'];
+        $login = true;
+      }
+      ?>
 	<header>
 		<div class="container-fluid mt-2 mb-2 d-flex" style="max-width: 800px;">
 			<div class="input-group">
-				<img src="IMG/LOGO.png" class="img-fluid">
-				<input type="text" class="form-control h-50 align-self-center shadow" placeholder="검색할 레시피를 입력하세요." maxlength=15>
+				<a href="index.php">
+                    <img src="IMG/LOGO.png" class="img-fluid">
+                </a>
+				<input type="text" id="searchInput" class="form-control h-50 align-self-center shadow" placeholder="검색할 레시피를 입력하세요." maxlength=15 onkeypress="searchEnter(event)">
 				<div class="input-group-append align-self-center shadow">
 					<button class="btn btn-outline-secondary" type="submit">검색</button>
 				</div>
@@ -73,7 +74,7 @@
 			<ul class="list-unstyled d-flex align-items-end" style="padding-left: 10px;">
 				<div class="circle-icon">
 					<?php if($login){ ?>
-					<a href="mypage.html"><span class="bi bi-person-fill fs-2"></span></a>
+					<a href="mypage.php"><span class="bi bi-person-fill fs-2"></span></a>
 					<?php }else { ?>
 					<a href="login.html"><span class="bi bi-person-fill fs-2"></span></a>
 					<?php } ?>
@@ -92,7 +93,7 @@
 	<!--메뉴 바-->
 	<nav>
 		<ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
-			<li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
+			<li class="nav-item  "><a href="index.php" class="nav-link">HOME</a></li>
 			<li class="nav-item"><a href="recipe.php?sort=date&t=0&m=10&h=20" class="nav-link">레시피</a></li>
 			<li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
 			<li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
@@ -113,7 +114,7 @@
 					</ul>
 				</div>
 				<div class="col-md-9">
-					<div class="bg-white" id='innerHTML'></div>
+					<div class="bg-white" id='innerHTML'> <b><?= $uname . " 님 환영합니다."; ?></b></div>
 				</div>
 			</div>
 		</div>
@@ -142,8 +143,9 @@
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					var response = xhr.responseText;
 					document.getElementById("innerHTML").innerHTML = response;
-					loadScript('signModify.js');
+                    loadScript(funcName);
 				}
+                
 				
 			};
 			xhr.open("GET", funcName, true);
@@ -153,8 +155,20 @@
 
 	</script>
 	<script>
-		function loadScript(jsfile) {
-			const script = document.createElement('script');
+		function loadScript(page) {
+            var jsfile = "";
+            switch (page){
+                case 'signModify.php' :
+                    jsfile = 'signModify.js';
+                    break;
+                case 'subscribedUser.php' :
+                    jsfile = 'goUser.js';
+                    break;
+                case 'likedPosts.php' :
+                    jsfile = 'goPost.js';
+                    break;
+            }
+            const script = document.createElement('script');
 			script.src = "js/" + jsfile; // 외부 페이지에 포함된 스크립트 파일 경로
 			document.body.appendChild(script);
 		}
