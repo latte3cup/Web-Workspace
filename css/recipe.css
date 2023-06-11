@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+.toggle-element li {
+	padding: 3px;
+}
+
+.fixed-image {
+	height: 250px;
+	object-fit: cover;
+}
+
+.pf_img {
+	width: 30px;
+	height: 30px;
+}
+
+.sort_li {
+	border: 1px solid rgba(1, 1, 1, 0.5);
+	margin-right: 3px;
+	border-radius: 4px;
+}
+
+.red-heart {
+	color: #fc46aa;
+}
+
+.sort_selected {
+	color: green;
+	font-weight: bold;
+}
+
+.sort-btn {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+.sort-btn:hover {
+	color: inherit;
+}
+
+li[onclick] {
+	cursor: pointer;
+	padding: 5px 10px;
+
+}
+
+li[onclick]:hover {
+	color: green;
+}
+
+.list-group-item {
+	margin-right: 14px;
+}
+
+.cg_selected {
+	border-radius: 10px;
+	background-color: #b1d973;
+	color: white;
+}
+
+#toggle-link {
+	text-decoration: none;
+	color: inherit;
+	margin-bottom: 5px;
+	font-size: 0.9em;
+}
