@@ -20,9 +20,11 @@
 
 	<!--검색바 js -->
 	<script src="js/search.js"></script>
+    
+    <script src="js/goPost.js"></script>
 
 
-	<title>main_bootstrap</title>
+	<title>주부들의 쉼터</title>
 	<style>
 		* {
 			/*
@@ -63,6 +65,9 @@
 			color: green;
 			font-weight: bold;
 		}
+        .card{
+            cursor: pointer;
+        }
 
 	</style>
 </head>
@@ -97,7 +102,7 @@
 				</div>
 				<div class="circle-icon">
 					<?php if($login){ ?>
-					<a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+					<a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
 					<?php }else { ?>
 					<a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
 					<?php } ?>
@@ -157,7 +162,7 @@
 				<?php
         while($row = $result-> fetch_assoc()){  
       ?>
-				<div class="card col-md-3 mt-5">
+				<div class="card col-md-3 mt-5 p-0" onclick="goPost('<?=$row['recipe_No'] ?>')">
 					<img src="IMG/<?=$row['image']?>" class="img-fluid card-img-top fixed-image">
 					<div class="card-body p-1 mt-1 d-flex flex-column justify-content-between">
 						<p class="mt-1"><?=$row['title']?></p>

@@ -17,7 +17,7 @@
 	<!--기본 프레임 css-->
 	<link rel="stylesheet" href="css/base.css">
 	<script src="js/search.js"></script>
-	<title>main_bootstrap</title>
+	<title>주부들의 쉼터</title>
 	<style>
 		* {
 			/*
@@ -71,7 +71,7 @@
 				</div>
 				<div class="circle-icon">
 					<?php if($login){ ?>
-					<a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+					<a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
 					<?php }else { ?>
 					<a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
 					<?php } ?>
@@ -108,7 +108,7 @@
 					<div class="card">
 						<img src="" class="card-img-top">
 						<div class="card-body">
-							<p class="card-text">어쩌구 저쩌구</p>
+							<p class="card-text">게시물 1 </p>
 						</div>
 					</div>
 				</div>
@@ -118,7 +118,7 @@
 					<div class="card">
 						<img src="" class="card-img-top">
 						<div class="card-body">
-							<p class="card-text">어쩌구 저쩌구</p>
+							<p class="card-text">게시물 2</p>
 						</div>
 					</div>
 				</div>

@@ -16,11 +16,12 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 	<!--기본 프레임 css-->
 	<link rel="stylesheet" href="css/base.css">
-
-	<title>main_bootstrap</title>
+	<script src="js/search.js"></script>
+    <script src = "js/goUser.js"></script>
+	<title>주부들의 쉼터</title>
 	<style>
 		* {
-/*
+			/*
 			border: 1px solid black;
 */
 		}
@@ -32,6 +33,9 @@
 		.data {
 			font-size: 0.9em;
 		}
+        #pro_img{
+            cursor: pointer;
+        }
 
 	</style>
 </head>
@@ -76,7 +80,7 @@
 	</header>
 	<nav>
 		<ul class="container list-unstyled d-flex justify-content-around mb-0 pt-2 pb-2 ">
-			<li class="nav-item selected"><a href="index.php" class="nav-link">HOME</a></li>
+			<li class="nav-item "><a href="index.php" class="nav-link">HOME</a></li>
 			<li class="nav-item"><a href="recipe.php?sort=date&t=0&m=10&h=20" class="nav-link">레시피</a></li>
 			<li class="nav-item"><a href="ranking.php?date=weekly" class="nav-link">랭킹</a></li>
 			<li class="nav-item"><a href="community.php" class="nav-link">커뮤니티</a></li>
@@ -113,12 +117,12 @@
 	}
 	?>
 
-	<section class="container mt-2 bg-gray mb-5">
+	<section class="container mt-2 bg-gray mb-5" style="padding-bottom : 20px;">
 		<div class="text-center bg-white container p-0" style="max-width: 1000px;">
 			<div class=" text-center container ">
 				<div style="position:relative;" id=img_part class="">
 					<img src="IMG/<?= $thumb_img ?>" class="mt-3 mb-3" id="thumb_img">
-					<div style="position:absolute; bottom: -30px;" id="pro_img">
+					<div style="position:absolute; bottom: -30px;" id="pro_img" onclick="goUser('<?=$posted_name ?>')">
 						<img src="IMG/<?= $profile_img?>" style="width:80px; border-radius:40px; border : 1px solid gray; border-width: 3px;">
 					</div>
 				</div>
@@ -195,7 +199,8 @@
 								<p class="data mb-0"><?=$main_ing_array[$num][1]?></p>
 							</div>
 							<?php
-							$num++;
+                                $num++;
+                                if($num>=10) break;
 							}
 							?>
 						</div>
@@ -215,7 +220,8 @@
 								<p class="data mb-0"><?=$sub_ing_array[$num][1]?></p>
 							</div>
 							<?php
-							$num++;
+                                $num++;
+                                if($num>=10) break;
 							}
 							?>
 						</div>
@@ -263,6 +269,7 @@
 				</div>
 				<?php
 					$num++;
+                    if($num>=10) break;
 				}
 				?>
 			</div>
@@ -292,32 +299,33 @@
 		window.addEventListener('resize', imgCenter);
 
 	</script>
-	<script> /*좋아요 버튼 클릭시 추천수가 오르면서 즐겨찾기에 추가*/
+	<script>
+		/*좋아요 버튼 클릭시 추천수가 오르면서 즐겨찾기에 추가*/
 		function updateLike() {
-			if(! <?= $login ?>){
+			if (!<?= $login ?>) {
 				alert('*좋아요* 하려면 로그인이 필요합니다.');
 				return;
 			}
 			let recipe_No = <?= $recipe_No ?>;
 			const xhs = new XMLHttpRequest();
 			xhs.onreadystatechange = function() {
-			  if (xhs.readyState === xhs.DONE) {
-				if (xhs.status === 200) {
-				  const result = JSON.parse(xhs.responseText);
-				  if (result.succ === true){
-					  alert('*좋아요*를 눌렀습니다!!');
-				  }else if(result.succ == 'duplication'){
-					   alert('이미 좋아요한 게시물입니다.');
-				  }else{
-					  alert('db 연결 오류');
-				  }
+				if (xhs.readyState === xhs.DONE) {
+					if (xhs.status === 200) {
+						const result = JSON.parse(xhs.responseText);
+						if (result.succ === true) {
+							alert('*좋아요*를 눌렀습니다!!');
+						} else if (result.succ == 'duplication') {
+							alert('이미 좋아요한 게시물입니다.');
+						} else {
+							alert('db 연결 오류');
+						}
+					}
 				}
-			  }
 			}
 			xhs.open('GET', 'updateLike.php?no=' + <?= $recipe_No ?>);
 			xhs.send();
-		  }
-  
+		}
+
 	</script>
 	<script>
 		function getName(value) {

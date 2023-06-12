@@ -16,8 +16,10 @@
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <!--기본 프레임 css-->
     <link rel="stylesheet" href="css/base.css">
+	  <script src="js/search.js"></script>
+	
 
-    <title>main_bootstrap</title>
+    <title>주부들의 쉼터</title>
     <style>
         * {
             /*   border: 1px solid black;*/
@@ -26,6 +28,9 @@
           width: 30px;
           height: 30px; 
         }
+        .red-heart {
+			color: #fc46aa;
+		}
 
     </style>
 </head>
@@ -61,7 +66,7 @@
                 </div>
                 <div class="circle-icon">
                     <?php if($login){ ?>
-                    <a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+                    <a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
                     <?php }else { ?>
                     <a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
                     <?php } ?>

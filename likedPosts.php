@@ -20,6 +20,9 @@
 		*{
 			/*border: 1px solid black;*/
 		}
+        .card{
+            cursor: pointer;
+        }
 
 	</style>
 </head>
@@ -56,7 +59,7 @@
 				$result_card = $conn->query($sql_card);
 				$row = $result_card-> fetch_assoc();
 			?>
-		<div class="col-4 card">
+		<div class="col-4 card" onclick="goPost(<?=$recipe_No?>)">
 			<img src="IMG/<?=$row['image']?>" class="img-fluid fixed-image">
 			<div class="card-body p-1 mt-1 d-flex flex-column justify-content-between">
 				<p class="mt-1"><?=$row['title']?></p>

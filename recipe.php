@@ -17,13 +17,14 @@
 	<!--기본 프레임 css-->
 	<link rel="stylesheet" href="css/base.css?after">
 	<script src="js/search.js"></script>
+    <script src="js/goPost.js"></script>
 	<link rel="stylesheet" href="css/receipt.css?after">
 
 	<title>주부들의 쉼터</title>
 	<style>
-		* {
-			/*            border: 1px solid black;*/
-		}
+        .card{
+            cursor: pointer;
+        }
 
 	</style>
 </head>
@@ -59,7 +60,7 @@
 				</div>
 				<div class="circle-icon">
 					<?php if($login){ ?>
-					<a href="insert.html"><span class="bi bi-pencil fs-4"></span></a>
+					<a href="insert.php"><span class="bi bi-pencil fs-4"></span></a>
 					<?php }else { ?>
 					<a href="login.html"><span class="bi bi-pencil fs-4"></span></a>
 					<?php } ?>
@@ -180,7 +181,7 @@
 					<?php
             while( $row = $result-> fetch_assoc()){
             ?>
-					<div class="card col-md-3 mt-5 ">
+					<div class="card col-md-3 mt-5 p-0" onclick="goPost(<?= $row['recipe_No'] ?>)">
 						<img src="IMG/<?=$row['image']?>" class="img-fluid card-img-top fixed-image">
 						<div class="card-body p-1 mt-1 d-flex flex-column justify-content-between">
 							<p class="mt-1"><?=$row['title']?></p>
@@ -192,7 +193,6 @@
                   $result2 = $conn->query($sql2);
                   $row2 = $result2 -> fetch_assoc();
                   ?>
-
 								<img src="IMG/<?=$row2['profile_img']?>" class="pf_img  rounded-circle">
 								<div class="p-1"><?= $row2['name']?></div>
 								<div style="position: absolute; top: 0; right: 0;">
@@ -211,7 +211,7 @@
         
         ?>
 			</div>
-
+            <!--페이징네이션 나비게이션-->
 			<navigation>
 				<ul class="pagination d-flex justify-content-center">
 					<li class="page-item">
@@ -232,7 +232,7 @@
 						</a>
 					</li>
 				</ul>
-			</navigation>//페이징네이션 구현 X
+			</navigation>
 		</div>
 
 	</section>
@@ -273,7 +273,6 @@
 			}
 			var newQuery = 'recipe.php?' + queryParams.join("&");
 			window.location.href = newQuery;
-
 		}
 
 	</script>
@@ -281,7 +280,6 @@
 	<!--선택된 카테고리 CSS적용 #line131-->
 	<script>
 		applyCss()
-
 	</script>
 
 
