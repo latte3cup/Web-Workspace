@@ -20,7 +20,7 @@
     <script src="js/goPost.js"></script>
 
 
-    <title>main_bootstrap</title>
+    <title>주부들의 쉼터</title>
     <style>
         * {
 
@@ -155,7 +155,7 @@
 
             <div class="row">
                 <div class="col-2"></div>
-                <div class="col-3 top"><?= $name ?></div>
+                <div class="col-3 top"><b><?= $name ?></b></div>
                 <div class="col-2 top"><?= $gender ?></div>
                 <div class="col-3 top"><?= $pdate ?> 생성</div>
                 <div class="col-2"></div>
@@ -176,7 +176,7 @@
                 <?php
                 while($row2 = $result2-> fetch_assoc()){  
                 ?>
-                <div class="card col-md-4 mt-5" onclick="goPost(<?= $row2['recipe_No']?>)">
+                <div class="card col-md-4 mt-5 p-0" onclick="goPost(<?= $row2['recipe_No']?>)">
                     <img src="IMG/<?=$row2['image']?>" class="img-fluid card-img-top fixed-image">
                     <div class="card-body p-1 mt-1 d-flex flex-column justify-content-between">
                         <p class="mt-1"><?=$row2['title']?></p>

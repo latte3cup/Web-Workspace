@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="css/base.css">
     <script src="js/search.js"></script>
     
-	<title>main_bootstrap</title>
+	<title>주부들의 쉼터</title>
 	<style>
 		* {
 			/*
@@ -110,7 +110,7 @@
 						<li class="menus mb-2" onclick="loadPage('signModify.php')">정보수정</li>
 						<li class="menus mb-2" onclick="loadPage('subscribedUser.php')">구독한 유저</li>
 						<li class="menus mb-2" onclick="loadPage('likedPosts.php')">관심 있는 게시물</li>
-						<li class="menus" onclick="loadPage('confrim.html')">회원탈퇴</li>
+						<li class="menus" onclick="loadPage('confirm.html')">회원탈퇴</li>
 					</ul>
 				</div>
 				<div class="col-md-9">
